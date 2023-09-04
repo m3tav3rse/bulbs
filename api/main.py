@@ -1,15 +1,9 @@
-import sys
-
-sys.path.append("lib")
-sys.path.append("mod")
-
-from conf import Conf
-from converter import rgb_to_hex
 from machine import Pin
-from nanoweb import Nanoweb, HttpError
-from neostrip import NeoStrip
 from uasyncio import get_event_loop
-from webutils import write_response, write_response_json, get_body_json
+from lib.nanoweb import Nanoweb, HttpError
+from mod.conf import Conf
+from mod.neostrip import NeoStrip
+from mod.webutils import write_response, write_response_json, get_body_json
 
 conf = Conf()
 led = NeoStrip(conf, Pin(5, Pin.OUT), Pin(4, Pin.OUT))

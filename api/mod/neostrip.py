@@ -1,7 +1,7 @@
-from converter import rgb_to_hex, hex_to_rgb
-from neopixel import NeoPixel
 from time import sleep
-from validator import validate_type, validate_range, validate_hex
+from neopixel import NeoPixel
+from .converter import rgb_to_hex, hex_to_rgb
+from .validator import validate_type, validate_range, validate_hex
 
 class NeoStrip:
     """NeoPixel with custom features"""

@@ -1,5 +1,4 @@
 import os
-import pytest
 import requests
 
 DEVICE_IP = os.getenv("DEVICE_IP")
