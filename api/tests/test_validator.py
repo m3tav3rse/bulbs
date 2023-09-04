@@ -12,7 +12,7 @@ def test_validate_type_valid():
         assert False
 
 def test_validate_type_invalid_type():
-    with pytest.raises(TypeError) as e:
+    with pytest.raises(TypeError):
         validator.validate_type(1, float)
 
 def test_validate_range_valid():
@@ -22,11 +22,11 @@ def test_validate_range_valid():
         assert False
 
 def test_validate_range_invalid_smaller():
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError):
         validator.validate_range(-0.1, 0.0, 1.0)
 
 def test_validate_range_invalid_bigger():
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError):
         validator.validate_range(1.1, 0.0, 1.0)
 
 def test_validate_hex_valid():
@@ -36,18 +36,18 @@ def test_validate_hex_valid():
         assert False
 
 def test_validate_hex_invalid_type():
-    with pytest.raises(TypeError) as e:
+    with pytest.raises(TypeError):
         validator.validate_hex(0x09AF55)
 
 def test_validate_hex_invalid_length():
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError):
         validator.validate_hex("#09AF")
 
 def test_validate_hex_invalid_hash():
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError):
         validator.validate_hex("09AF55")
 
 def test_validate_hex_invalid_value():
-    with pytest.raises(ValueError) as e:
+    with pytest.raises(ValueError):
         validator.validate_hex("#/:@G55")
 

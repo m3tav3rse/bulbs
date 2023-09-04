@@ -34,9 +34,10 @@ def test_led_color_put_invalid():
 def test_led_color_functionality():
     color = "#388e3c"
 
-    response_put = requests.put(f"{URL_LED_COLOR}/{color[1:]}")
+    assert requests.put(f"{URL_LED_COLOR}/{color[1:]}").status_code == 200
     response_get = requests.get(URL_LED_COLOR)
 
+    assert response_get.status_code == 200
     assert response_get.json()["color"] == color
 
 def test_led_brightness_get():
@@ -59,9 +60,10 @@ def test_led_brightness_put_invalid():
 def test_led_brightness_functionality():
     brightness = 0.21
 
-    response_put = requests.put(f"{URL_LED_BRIGHTNESS}/{brightness}")
+    assert requests.put(f"{URL_LED_BRIGHTNESS}/{brightness}") == 200
     response_get = requests.get(URL_LED_BRIGHTNESS)
 
+    assert response_get.status_code == 200
     assert response_get.json()["brightness"] == brightness
 
 def test_led_status():
