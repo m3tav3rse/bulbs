@@ -1,11 +1,7 @@
-import sys
-
-sys.path.append("mod")
-
-import conf
 import gc
 import network
 import ubinascii
+from mod.conf import Conf
 
 gc.collect()
 
@@ -17,7 +13,7 @@ def init_ap():
     ap.config(essid=f'Bulb ({mac[-2:]})', password="bulbbulb")
 
 def init_sta():
-    c = conf.Conf()
+    c = Conf()
 
     if not c.get("sta_ssid") or not c.get("sta_password"):
         return

@@ -1,9 +1,4 @@
-import sys
-import pytest
-
-sys.path.append("mod")
-
-import converter
+from mod import converter
 
 def test_rgb_to_hex():
     assert converter.rgb_to_hex((21, 37, 0)) == "#152500"

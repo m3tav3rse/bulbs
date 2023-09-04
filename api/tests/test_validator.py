@@ -1,9 +1,6 @@
-import sys
 import pytest
+from mod import validator
 
-sys.path.append("mod")
-
-import validator
 
 def test_validate_type_valid():
     try:
