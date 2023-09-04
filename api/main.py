@@ -136,7 +136,7 @@ async def color_put(request):
     if request.method != "PUT":
         raise HttpError(request, 404, "Not Found")
 
-    color = f"#{request.url.split("/")[-1]}"
+    color = f"#{request.url.split('/')[-1]}"
 
     try:
         led.set_color(color)
