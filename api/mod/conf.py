@@ -24,8 +24,10 @@ class Conf:
         try:
             with open(self._file) as f:
                 self._delta(json.loads(f.read()))
-        except OSError:
-            print("conf: file not found")
+        except OSError as e:
+            print(f"Conf: conf.json: {e.strerror}")
+        except json.JSONDecodeError as e:
+            print(f"Conf: invalid config file: {e}")
 
     def _save(self):
         with open(self._file, "w") as f:
