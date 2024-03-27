@@ -1,7 +1,33 @@
 from time import sleep
-from neopixel import NeoPixel
+
+# from neopixel import NeoPixel
 from .converter import rgb_to_hex, hex_to_rgb
 from .validator import validate_type, validate_range, validate_hex
+
+
+class NeoPixel:
+    """Mock for testing without MCU"""
+
+    def __init__(self, _, msg):
+        self.pwr = True
+        self.bpp = 3
+        print(f"NeoPixel mock initialized: {msg}")
+
+    def fill(self, color):
+        self._color = color
+
+    def value(self):
+        return True
+
+    def write(self):
+        return True
+
+    def on(self):
+        self.pwr = True
+
+    def off(self):
+        self.pwr = False
+
 
 class NeoStrip:
     """NeoPixel with custom features"""
@@ -61,11 +87,13 @@ class NeoStrip:
         else:
             self._mosfet.off()
 
-        self._conf.set({
-            "led_brightness": self._brightness,
-            "led_color": rgb_to_hex(self._color),
-            "led_power": self._power
-        })
+        self._conf.set(
+            {
+                "led_brightness": self._brightness,
+                "led_color": rgb_to_hex(self._color),
+                "led_power": self._power,
+            }
+        )
 
     def _try_update(self):
         if self._auto_update:
@@ -75,4 +103,3 @@ class NeoStrip:
         return tuple(
             int(color[i] * self._brightness) for i in range(self._pixels.bpp)
         )
-

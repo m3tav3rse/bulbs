@@ -1,24 +1,24 @@
-from machine import Pin
+# from machine import Pin
 from uasyncio import get_event_loop
 from lib.nanoweb import Nanoweb, HttpError
 from mod.conf import Conf
-from mod.neostrip import NeoStrip
+from mod.neostrip import NeoStrip, NeoPixel
 from mod.webutils import write_response, write_response_json, get_body_json
 
 conf = Conf()
-led = NeoStrip(conf, Pin(5, Pin.OUT), Pin(4, Pin.OUT))
-server = Nanoweb()
+led = NeoStrip(conf, NeoPixel(5, "pin"), NeoPixel(4, "pin"))
+server = Nanoweb(port=8000, address='127.0.0.1')
 
 @server.route("/connect")
 async def connect(request):
     async def get():
-        sta = network.WLAN(network.STA_IF)
+        # sta = network.WLAN(network.STA_IF)
 
         await write_response_json(request, {
-            "ssid": sta.config("essid"),
-            "status": sta.status(),
-            "connected": int(sta.isconnected()),
-            "ip": sta.ifconfig()[0]
+            "ssid": "mock",
+            "status": "mocking",
+            "connected": 2,
+            "ip": "X",
         })
 
     async def post():
