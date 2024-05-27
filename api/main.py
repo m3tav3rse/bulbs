@@ -1,9 +1,9 @@
 # from machine import Pin
-from uasyncio import get_event_loop
-from lib.nanoweb import Nanoweb, HttpError
+from lib.nanoweb import HttpError, Nanoweb
 from mod.conf import Conf
-from mod.neostrip import NeoStrip, NeoPixel
-from mod.webutils import write_response, write_response_json, get_body_json
+from mod.neostrip import NeoPixel, NeoStrip
+from mod.webutils import get_body_json, write_response, write_response_json
+from uasyncio import get_event_loop
 
 conf = Conf()
 led = NeoStrip(conf, NeoPixel(5, "pin"), NeoPixel(4, "pin"))
@@ -42,8 +42,8 @@ async def connect(request):
 
     try:
         await {"GET": get, "POST": post}[request.method]()
-    except KeyError:
-        raise HttpError(request, 404, "Not Found")
+    except KeyError as e:
+        raise HttpError(request, 404, "Not Found") from e
 
 
 @server.route("/led")
@@ -71,8 +71,8 @@ async def led_on(request):
 
     try:
         await {"GET": get, "PUT": put}[request.method]()
-    except KeyError:
-        raise HttpError(request, 404, "Not Found")
+    except KeyError as e:
+        raise HttpError(request, 404, "Not Found") from e
 
 @server.route("/led/off")
 async def led_off(request):
@@ -88,8 +88,8 @@ async def led_off(request):
 
     try:
         await {"GET": get, "PUT": put}[request.method]()
-    except:
-        raise HttpError(request, 404, "Not Found")
+    except KeyError as e:
+        raise HttpError(request, 404, "Not Found") from e
 
 @server.route("/led/brightness")
 async def brightness_get(request):

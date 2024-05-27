@@ -7,6 +7,7 @@ async def get_body_json(request):
 
     if content_length:
         return json.loads(await request.read(content_length) or {})
+    return None
 
 async def write_response(request, code=200, message="OK"):
     await request.write(f"HTTP/1.1 {code} {message}{BR*2}")

@@ -1,8 +1,8 @@
 from time import sleep
 
 # from neopixel import NeoPixel
-from .converter import rgb_to_hex, hex_to_rgb
-from .validator import validate_type, validate_range, validate_hex
+from .converter import hex_to_rgb, rgb_to_hex
+from .validator import validate_hex, validate_range, validate_type
 
 
 class NeoPixel:
