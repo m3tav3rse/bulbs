@@ -1,9 +1,11 @@
 # from machine import Pin
+from asyncio import get_event_loop
+
 from lib.nanoweb import HttpError, Nanoweb
+from mod import discovery
 from mod.conf import Conf
 from mod.neostrip import NeoPixel, NeoStrip
 from mod.webutils import get_body_json, write_response, write_response_json
-from uasyncio import get_event_loop
 
 conf = Conf()
 led = NeoStrip(conf, NeoPixel(5, "pin"), NeoPixel(4, "pin"))
@@ -146,6 +148,7 @@ def start_server():
     http_server = server.run()
 
     loop.create_task(http_server)
+    loop.create_task(discovery.server())
     loop.run_forever()
 
 if __name__ == "__main__":
