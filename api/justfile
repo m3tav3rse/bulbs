@@ -1,0 +1,29 @@
+version := "1.22.2"
+mpy := "micropython-" + version + "/mpy-cross/build/mpy-cross"
+
+default:
+    just -l
+
+get-mpy:
+    curl -L https://github.com/micropython/micropython/archive/refs/tags/v{{ version }}.tar.gz -o micropython-{{ version }}.tar.gz
+    tar xf micropython-{{ version }}.tar.gz
+
+build-mpy: get-mpy
+    cd micropython-{{ version }}/mpy-cross && make
+
+clean-mpy:
+    rm -rf micropython-{{ version }} build
+
+compile:
+    mkdir -p build/lib build/mod
+    {{ mpy }} -o build/boot.mpy boot.py
+    {{ mpy }} -o build/lib/nanoweb.mpy lib/nanoweb.py
+    {{ mpy }} -o build/lib/__init__.mpy lib/__init__.py
+    {{ mpy }} -o build/main.mpy main.py
+    {{ mpy }} -o build/mod/conf.mpy mod/conf.py
+    {{ mpy }} -o build/mod/converter.mpy mod/converter.py
+    {{ mpy }} -o build/mod/discover.mpy mod/discover.py
+    {{ mpy }} -o build/mod/neostrip.mpy mod/neostrip.py
+    {{ mpy }} -o build/mod/validator.mpy mod/validator.py
+    {{ mpy }} -o build/mod/webutils.mpy mod/webutils.py
+    {{ mpy }} -o build/mod/__init__.mpy mod/__init__.py
